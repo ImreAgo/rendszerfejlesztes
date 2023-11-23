@@ -11,7 +11,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/cl"
         android:padding="16dp">
+
 
         <Button
             android:id="@+id/button5"
@@ -77,32 +79,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextText6"
-            android:layout_width="32dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="464dp"
-            android:background="#A9FFFFFF"
-            android:ems="10"
-            android:hapticFeedbackEnabled="true"
-            android:inputType="text"
-            app:layout_constraintStart_toEndOf="@+id/editTextText4"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/editTextText7"
-            android:layout_width="32dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="464dp"
-            android:background="#A9FFFFFF"
-            android:ems="10"
-            android:hapticFeedbackEnabled="true"
-            android:inputType="text"
-            app:layout_constraintStart_toEndOf="@+id/editTextText6"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
             android:id="@+id/editTextText3"
             android:layout_width="300dp"
             android:layout_height="142dp"
@@ -155,22 +131,20 @@
             android:layout_width="74dp"
             android:layout_height="28dp"
             android:layout_marginStart="192dp"
-            android:layout_marginBottom="4dp"
             android:text="Mennyiség"
             android:textSize="14dp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextText6"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="448dp" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="96dp"
             android:layout_height="27dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
             android:text="Mértékegys."
             android:textSize="14dp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextText7"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="449dp" />
 
         <TextView
             android:id="@+id/textView2"
@@ -182,5 +156,6 @@
             android:textSize="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
