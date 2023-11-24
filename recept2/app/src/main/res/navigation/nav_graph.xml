@@ -25,4 +25,14 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_third"
+        android:name="com.example.recept2.fragment_third"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_third">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_fragment_third"
+            app:destination="@id/fragment_third" />
+    </fragment>
 </navigation>
