@@ -11,7 +11,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.Spinner;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -31,6 +33,8 @@ public class SecondFragment extends Fragment {
 
     DBHelper db;
 
+
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -44,10 +48,13 @@ public class SecondFragment extends Fragment {
 
     int id = 0;
 
+
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button plus=view.findViewById(R.id.button6);
+
+
         Button save=view.findViewById(R.id.button7);
         ConstraintLayout llMain = view.findViewById(R.id.cl);
 
@@ -129,11 +136,11 @@ public class SecondFragment extends Fragment {
         });
 
 
-        plus.setOnClickListener(new View.OnClickListener() {
+        /*plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                /*EditText textView = new EditText(getContext());
+                EditText textView = new EditText(getContext());
                 id++;
 
 
@@ -152,13 +159,13 @@ public class SecondFragment extends Fragment {
 
                 constraintSet.connect(textView.getId(), ConstraintSet.TOP, R.id.editTextText4, ConstraintSet.BOTTOM, 18);
                 constraintSet.connect(textView.getId(), ConstraintSet.START, llMain.getId(), ConstraintSet.START, 18);
-                    constraintSet.applyTo(llMain);*/
+                    constraintSet.applyTo(llMain);
 
-                /**/
-                }
-            });
 
-        }
+            }
+        });*/
+
+    }
 
 
 

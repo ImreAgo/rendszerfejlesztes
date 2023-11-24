@@ -2,6 +2,7 @@ package com.example.recept2;
 
 import android.os.Bundle;
 
+import com.example.recept2.databinding.FragmentSecondBinding;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,10 @@ import com.example.recept2.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Spinner;
+
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +32,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*ArrayAdapter<String> spinnerArrayAdapter;
+        Spinner kategoriak = findViewById(R.id.kategoria);
+        String kategoriakTomb[] = {"Levesek","Főételek","Köretek","Desszert"};
+        Spinner spinner = (Spinner) findViewById(R.id.kategoria);
+        ArrayAdapter<CharSequence>adapter=ArrayAdapter.createFromResource(this, R.array.kate_string, android.R.layout.simple_spinner_item);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, R.id.kategoria, kategoriakTomb);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, kategoriakTomb);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        kategoriak.setAdapter(spinnerArrayAdapter);*/
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
