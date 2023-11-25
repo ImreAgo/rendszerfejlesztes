@@ -58,6 +58,15 @@ public class FirstFragment extends Fragment {
 
             v.setId(r.getId());
             v.setText(r.getNev());
+            v.setTextSize(20);
+            v.setPadding(100,30,0,30);
+
+            switch(r.getKategoria()){
+                case "Leves": v.setText("🍲"+ r.getNev()); break;
+                case "Főétel": v.setText("🍛"+ r.getNev()); break;
+                case "Köret": v.setText("🍚"+ r.getNev()); break;
+                case "Desszert": v.setText("🍰"+ r.getNev()); break;
+            }
 
             verticalDatas.addView(v);
 

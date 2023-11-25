@@ -76,10 +76,10 @@ public class SecondFragment extends Fragment {
                 Boolean checkinsertdata = db.insertRecept(nev.getText().toString(), "", leiras.getText().toString(), Integer.parseInt(hanyfo.getText().toString()), alapanyagok.getText().toString(), b.getText().toString());
 
                 if(checkinsertdata){
-                    Toast.makeText(getContext(), "New Entry inserted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "A recept mentésre került.", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(getContext(), "New Entry Not inserted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "A recept nem került mentésre.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
