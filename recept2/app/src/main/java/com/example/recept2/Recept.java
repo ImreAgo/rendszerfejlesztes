@@ -1,24 +1,29 @@
 package com.example.recept2;
 
+import java.sql.Blob;
+
 public class Recept {
     private int Id;
     private String Nev;
     private String Leiras;
+    private String Kep;
     private int Hanyfo;
     private String Alapanyagok;
     private String Kategoria;
 
-    public Recept(String nev, String leiras, int hanyfo, String alapanyagok, String kategoria) {
+    public Recept(String nev, String kep, String leiras, int hanyfo, String alapanyagok, String kategoria) {
         Nev = nev;
+        Kep = kep;
         Leiras = leiras;
         Hanyfo = hanyfo;
         Alapanyagok = alapanyagok;
         Kategoria = kategoria;
     }
 
-    public Recept(int id, String nev, String leiras, int hanyfo, String alapanyagok, String kategoria) {
+    public Recept(int id, String nev, String kep, String leiras, int hanyfo, String alapanyagok, String kategoria) {
         Id = id;
         Nev = nev;
+        Kep = kep;
         Leiras = leiras;
         Hanyfo = hanyfo;
         Alapanyagok = alapanyagok;

@@ -60,13 +60,14 @@ public class FirstFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     int id = v.getId();
-                    Intent i = new Intent(getContext(), fragment_third.class);
-                    i.putExtra("id", id);
+
+                    Bundle result = new Bundle();
+                    result.putString("id", String.valueOf(id));
+                    getParentFragmentManager().setFragmentResult("dataFromFirst", result);
+
 
                     NavHostFragment.findNavController(FirstFragment.this)
-                            .navigate(R.id.action_FirstFragment_to_SecondFragment);
-
-                    //Toast.makeText(getContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
+                            .navigate(R.id.action_FirstFragment_to_fragment_third);
                 }
             });
 

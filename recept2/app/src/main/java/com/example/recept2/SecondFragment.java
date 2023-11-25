@@ -35,8 +35,6 @@ public class SecondFragment extends Fragment {
 
     DBHelper db;
 
-
-
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -75,62 +73,7 @@ public class SecondFragment extends Fragment {
 
                 RadioButton b = view.findViewById(id);
 
-                Boolean checkinsertdata = db.insertRecept(nev.getText().toString(), new Blob() {
-                    @Override
-                    public long length() throws SQLException {
-                        return 0;
-                    }
-
-                    @Override
-                    public byte[] getBytes(long pos, int length) throws SQLException {
-                        return new byte[0];
-                    }
-
-                    @Override
-                    public InputStream getBinaryStream() throws SQLException {
-                        return null;
-                    }
-
-                    @Override
-                    public long position(byte[] pattern, long start) throws SQLException {
-                        return 0;
-                    }
-
-                    @Override
-                    public long position(Blob pattern, long start) throws SQLException {
-                        return 0;
-                    }
-
-                    @Override
-                    public int setBytes(long pos, byte[] bytes) throws SQLException {
-                        return 0;
-                    }
-
-                    @Override
-                    public int setBytes(long pos, byte[] bytes, int offset, int len) throws SQLException {
-                        return 0;
-                    }
-
-                    @Override
-                    public OutputStream setBinaryStream(long pos) throws SQLException {
-                        return null;
-                    }
-
-                    @Override
-                    public void truncate(long len) throws SQLException {
-
-                    }
-
-                    @Override
-                    public void free() throws SQLException {
-
-                    }
-
-                    @Override
-                    public InputStream getBinaryStream(long pos, long length) throws SQLException {
-                        return null;
-                    }
-                }, leiras.getText().toString(), Integer.parseInt(hanyfo.getText().toString()), alapanyagok.getText().toString(), b.getText().toString());
+                Boolean checkinsertdata = db.insertRecept(nev.getText().toString(), "", leiras.getText().toString(), Integer.parseInt(hanyfo.getText().toString()), alapanyagok.getText().toString(), b.getText().toString());
 
                 if(checkinsertdata){
                     Toast.makeText(getContext(), "New Entry inserted", Toast.LENGTH_SHORT).show();
