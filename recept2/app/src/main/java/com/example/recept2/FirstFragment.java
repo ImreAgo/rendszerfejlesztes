@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,11 @@ public class FirstFragment extends Fragment {
 
         LinearLayout verticalDatas = view.findViewById(R.id.verticalLayout);
 
+        Button levesek = view.findViewById(R.id.button);
+        Button foetelek = view.findViewById(R.id.button2);
+        Button koretek = view.findViewById(R.id.button3);
+        Button desszertek = view.findViewById(R.id.button4);
+
         for(Recept r : receptek){
             TextView v = new TextView(getContext());
 
@@ -79,6 +85,153 @@ public class FirstFragment extends Fragment {
             constraintSet.applyTo(llMain);*/
         }
 
+        levesek.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                String kategoria = "Leves";
+
+                verticalDatas.removeAllViews();
+
+                List<Recept> levesek = db.getReceptbyKategoria(kategoria);
+
+                for (Recept r : levesek) {
+                    TextView recept = new TextView(getContext());
+
+                    recept.setId(r.getId());
+                    recept.setText(r.getNev());
+
+                    verticalDatas.addView(recept);
+
+                    recept.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            int id = recept.getId();
+
+                            Bundle result = new Bundle();
+                            result.putString("id", String.valueOf(id));
+                            getParentFragmentManager().setFragmentResult("dataFromFirst", result);
+
+
+                            NavHostFragment.findNavController(FirstFragment.this)
+                                    .navigate(R.id.action_FirstFragment_to_fragment_third);
+                        }
+                    });
+                }
+            }
+        });
+
+        foetelek.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                String kategoria = "Főétel";
+
+                verticalDatas.removeAllViews();
+
+                List<Recept> foetelek = db.getReceptbyKategoria(kategoria);
+
+                for (Recept r : foetelek) {
+                    TextView recept = new TextView(getContext());
+
+                    recept.setId(r.getId());
+                    recept.setText(r.getNev());
+
+                    verticalDatas.addView(recept);
+
+                    recept.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            int id = recept.getId();
+
+                            Bundle result = new Bundle();
+                            result.putString("id", String.valueOf(id));
+                            getParentFragmentManager().setFragmentResult("dataFromFirst", result);
+
+
+                            NavHostFragment.findNavController(FirstFragment.this)
+                                    .navigate(R.id.action_FirstFragment_to_fragment_third);
+                        }
+                    });
+                }
+            }
+        });
+
+        koretek.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                String kategoria = "Köret";
+
+                verticalDatas.removeAllViews();
+
+                List<Recept> koretek = db.getReceptbyKategoria(kategoria);
+
+                for (Recept r : koretek) {
+                    TextView recept = new TextView(getContext());
+
+                    recept.setId(r.getId());
+                    recept.setText(r.getNev());
+
+                    verticalDatas.addView(recept);
+
+                    recept.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            int id = recept.getId();
+
+                            Bundle result = new Bundle();
+                            result.putString("id", String.valueOf(id));
+                            getParentFragmentManager().setFragmentResult("dataFromFirst", result);
+
+
+                            NavHostFragment.findNavController(FirstFragment.this)
+                                    .navigate(R.id.action_FirstFragment_to_fragment_third);
+                        }
+                    });
+                }
+            }
+        });
+
+        desszertek.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                String kategoria = "Desszert";
+
+                verticalDatas.removeAllViews();
+
+                List<Recept> desszertek = db.getReceptbyKategoria(kategoria);
+
+                for (Recept r : desszertek) {
+                    TextView recept = new TextView(getContext());
+
+                    recept.setId(r.getId());
+                    recept.setText(r.getNev());
+
+                    verticalDatas.addView(recept);
+
+                    recept.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            int id = recept.getId();
+
+                            Bundle result = new Bundle();
+                            result.putString("id", String.valueOf(id));
+                            getParentFragmentManager().setFragmentResult("dataFromFirst", result);
+
+
+                            NavHostFragment.findNavController(FirstFragment.this)
+                                    .navigate(R.id.action_FirstFragment_to_fragment_third);
+                        }
+                    });
+                }
+            }
+        });
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
