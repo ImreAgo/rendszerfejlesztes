@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,9 +20,10 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.recept2.databinding.FragmentFirstBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class FirstFragment extends Fragment {
+public class  FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
 
@@ -37,6 +40,82 @@ public class FirstFragment extends Fragment {
 
     }
 
+    public void receptek(String kategoria, List<Recept> receptek, LinearLayout verticalDatas){
+
+        if(kategoria.isEmpty()){
+            for(Recept r : receptek){
+                TextView v = new TextView(getContext());
+
+                v.setId(r.getId());
+                v.setText(r.getNev());
+                v.setTextSize(20);
+                v.setPadding(100,30,0,30);
+
+                switch(r.getKategoria()){
+                    case "Leves": v.setText("🍲"+ r.getNev()); break;
+                    case "Főétel": v.setText("🍛"+ r.getNev()); break;
+                    case "Köret": v.setText("🍚"+ r.getNev()); break;
+                    case "Desszert": v.setText("🍰"+ r.getNev()); break;
+                }
+
+                verticalDatas.addView(v);
+
+                v.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View v) {
+                        int id = v.getId();
+
+                        Bundle result = new Bundle();
+                        result.putString("id", String.valueOf(id));
+                        getParentFragmentManager().setFragmentResult("dataFromFirst", result);
+
+                        NavHostFragment.findNavController(FirstFragment.this)
+                                .navigate(R.id.action_FirstFragment_to_fragment_third);
+                    }
+                });
+            }
+        }
+        else{
+            verticalDatas.removeViews(1,verticalDatas.getChildCount()-1);
+
+            List<Recept> kategoriak = db.getReceptbyKategoria(kategoria);
+
+            for (Recept r : kategoriak) {
+                TextView recept = new TextView(getContext());
+
+                recept.setId(r.getId());
+                recept.setText(r.getNev());
+                recept.setTextSize(20);
+                recept.setPadding(100,30,0,30);
+
+                switch(r.getKategoria()){
+                    case "Leves": recept.setText("🍲"+ r.getNev()); break;
+                    case "Főétel": recept.setText("🍛"+ r.getNev()); break;
+                    case "Köret": recept.setText("🍚"+ r.getNev()); break;
+                    case "Desszert": recept.setText("🍰"+ r.getNev()); break;
+                }
+
+                verticalDatas.addView(recept);
+
+                recept.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        int id = recept.getId();
+
+                        Bundle result = new Bundle();
+                        result.putString("id", String.valueOf(id));
+                        getParentFragmentManager().setFragmentResult("dataFromFirst", result);
+
+                        NavHostFragment.findNavController(FirstFragment.this)
+                                .navigate(R.id.action_FirstFragment_to_fragment_third);
+                    }
+                });
+            }
+        }
+    }
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -44,90 +123,84 @@ public class FirstFragment extends Fragment {
 
         List<Recept> receptek = db.getRecept();
 
-        ConstraintLayout llMain = view.findViewById(R.id.cl1);
-
         LinearLayout verticalDatas = view.findViewById(R.id.verticalLayout);
+
+        SearchView sv = view.findViewById(R.id.searchView);
 
         Button levesek = view.findViewById(R.id.button);
         Button foetelek = view.findViewById(R.id.button2);
         Button koretek = view.findViewById(R.id.button3);
         Button desszertek = view.findViewById(R.id.button4);
 
-        for(Recept r : receptek){
-            TextView v = new TextView(getContext());
+        receptek("", receptek, verticalDatas);
 
-            v.setId(r.getId());
-            v.setText(r.getNev());
-            v.setTextSize(20);
-            v.setPadding(100,30,0,30);
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
 
-            switch(r.getKategoria()){
-                case "Leves": v.setText("🍲"+ r.getNev()); break;
-                case "Főétel": v.setText("🍛"+ r.getNev()); break;
-                case "Köret": v.setText("🍚"+ r.getNev()); break;
-                case "Desszert": v.setText("🍰"+ r.getNev()); break;
+                verticalDatas.removeViews(1, verticalDatas.getChildCount()-1);
+                if(query.isEmpty()){
+                    receptek("",receptek, verticalDatas);
+                }
+                else {
+                    for (Recept r : receptek) {
+                        if (r.getNev().contains(query)) {
+                            TextView v = new TextView(getContext());
+
+                            v.setId(r.getId());
+                            v.setText(r.getNev());
+                            v.setTextSize(20);
+                            v.setPadding(100, 30, 0, 30);
+
+                            switch (r.getKategoria()) {
+                                case "Leves":
+                                    v.setText("🍲" + r.getNev());
+                                    break;
+                                case "Főétel":
+                                    v.setText("🍛" + r.getNev());
+                                    break;
+                                case "Köret":
+                                    v.setText("🍚" + r.getNev());
+                                    break;
+                                case "Desszert":
+                                    v.setText("🍰" + r.getNev());
+                                    break;
+                            }
+
+                            verticalDatas.addView(v);
+
+                            v.setOnClickListener(new View.OnClickListener() {
+
+                                @Override
+                                public void onClick(View v) {
+                                    int id = v.getId();
+
+                                    Bundle result = new Bundle();
+                                    result.putString("id", String.valueOf(id));
+                                    getParentFragmentManager().setFragmentResult("dataFromFirst", result);
+
+                                    NavHostFragment.findNavController(FirstFragment.this)
+                                            .navigate(R.id.action_FirstFragment_to_fragment_third);
+                                }
+                            });
+                        }
+                    }
+                }
+
+                return true;
             }
 
-            verticalDatas.addView(v);
-
-            v.setOnClickListener(new View.OnClickListener(){
-
-                @Override
-                public void onClick(View v) {
-                    int id = v.getId();
-
-                    Bundle result = new Bundle();
-                    result.putString("id", String.valueOf(id));
-                    getParentFragmentManager().setFragmentResult("dataFromFirst", result);
-
-
-                    NavHostFragment.findNavController(FirstFragment.this)
-                            .navigate(R.id.action_FirstFragment_to_fragment_third);
-                }
-            });
-
-            /*ConstraintSet constraintSet = new ConstraintSet();
-            constraintSet.clone(llMain);
-
-            constraintSet.connect(v.getId(), ConstraintSet.TOP, R.id.linearLayout, ConstraintSet.BOTTOM, 18);
-            constraintSet.connect(v.getId(), ConstraintSet.START, llMain.getId(), ConstraintSet.START, 18);
-            constraintSet.applyTo(llMain);*/
-        }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
         levesek.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                String kategoria = "Leves";
-
-                verticalDatas.removeAllViews();
-
-                List<Recept> levesek = db.getReceptbyKategoria(kategoria);
-
-                for (Recept r : levesek) {
-                    TextView recept = new TextView(getContext());
-
-                    recept.setId(r.getId());
-                    recept.setText(r.getNev());
-
-                    verticalDatas.addView(recept);
-
-                    recept.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-                            int id = recept.getId();
-
-                            Bundle result = new Bundle();
-                            result.putString("id", String.valueOf(id));
-                            getParentFragmentManager().setFragmentResult("dataFromFirst", result);
-
-
-                            NavHostFragment.findNavController(FirstFragment.this)
-                                    .navigate(R.id.action_FirstFragment_to_fragment_third);
-                        }
-                    });
-                }
+                receptek("Leves", receptek, verticalDatas);
             }
         });
 
@@ -135,36 +208,7 @@ public class FirstFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                String kategoria = "Főétel";
-
-                verticalDatas.removeAllViews();
-
-                List<Recept> foetelek = db.getReceptbyKategoria(kategoria);
-
-                for (Recept r : foetelek) {
-                    TextView recept = new TextView(getContext());
-
-                    recept.setId(r.getId());
-                    recept.setText(r.getNev());
-
-                    verticalDatas.addView(recept);
-
-                    recept.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-                            int id = recept.getId();
-
-                            Bundle result = new Bundle();
-                            result.putString("id", String.valueOf(id));
-                            getParentFragmentManager().setFragmentResult("dataFromFirst", result);
-
-
-                            NavHostFragment.findNavController(FirstFragment.this)
-                                    .navigate(R.id.action_FirstFragment_to_fragment_third);
-                        }
-                    });
-                }
+                receptek("Főétel", receptek, verticalDatas);
             }
         });
 
@@ -172,36 +216,8 @@ public class FirstFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                String kategoria = "Köret";
 
-                verticalDatas.removeAllViews();
-
-                List<Recept> koretek = db.getReceptbyKategoria(kategoria);
-
-                for (Recept r : koretek) {
-                    TextView recept = new TextView(getContext());
-
-                    recept.setId(r.getId());
-                    recept.setText(r.getNev());
-
-                    verticalDatas.addView(recept);
-
-                    recept.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-                            int id = recept.getId();
-
-                            Bundle result = new Bundle();
-                            result.putString("id", String.valueOf(id));
-                            getParentFragmentManager().setFragmentResult("dataFromFirst", result);
-
-
-                            NavHostFragment.findNavController(FirstFragment.this)
-                                    .navigate(R.id.action_FirstFragment_to_fragment_third);
-                        }
-                    });
-                }
+                receptek("Köret", receptek, verticalDatas);
             }
         });
 
@@ -209,36 +225,7 @@ public class FirstFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                String kategoria = "Desszert";
-
-                verticalDatas.removeAllViews();
-
-                List<Recept> desszertek = db.getReceptbyKategoria(kategoria);
-
-                for (Recept r : desszertek) {
-                    TextView recept = new TextView(getContext());
-
-                    recept.setId(r.getId());
-                    recept.setText(r.getNev());
-
-                    verticalDatas.addView(recept);
-
-                    recept.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-                            int id = recept.getId();
-
-                            Bundle result = new Bundle();
-                            result.putString("id", String.valueOf(id));
-                            getParentFragmentManager().setFragmentResult("dataFromFirst", result);
-
-
-                            NavHostFragment.findNavController(FirstFragment.this)
-                                    .navigate(R.id.action_FirstFragment_to_fragment_third);
-                        }
-                    });
-                }
+                receptek("Desszert", receptek, verticalDatas);
             }
         });
         binding.fab.setOnClickListener(new View.OnClickListener() {
