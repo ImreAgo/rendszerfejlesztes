@@ -77,4 +77,12 @@ public class Recept {
     public void setKategoria(String kategoria) {
         Kategoria = kategoria;
     }
+
+    public String getKep() {
+        return Kep;
+    }
+
+    public void setKep(String kep) {
+        Kep = kep;
+    }
 }
