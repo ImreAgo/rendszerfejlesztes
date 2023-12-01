@@ -31,6 +31,23 @@ public class ThirdFragment extends Fragment {
     DBHelper db;
 
     File[] pictures;
+
+    private static String[][] splitter (String input) {
+
+        String[] hozzavalok = input.split(";");
+        int n = hozzavalok.length;
+        String[][] minden = new String[n][3];
+        for(int i = 0; i < hozzavalok.length; i++) {
+            String[] hozzavalo = hozzavalok[i].split(",");
+            minden[i][0] = hozzavalo[0];
+            minden[i][1] = hozzavalo[1];
+            minden[i][2] = hozzavalo[2];
+        }
+        return minden;
+    }
+
+    public String hozzavalok_string = "";
+
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
@@ -62,19 +79,35 @@ public class ThirdFragment extends Fragment {
 
                 //pictures[0].getAbsolutePath()
 
-                Toast.makeText(getContext(), pictures[0].getAbsolutePath(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), pictures[10].getAbsolutePath(), Toast.LENGTH_SHORT).show();
 
                 for(int i = 0; i<pictures.length;i++){
-                    if(pictures[i].getAbsolutePath().contains(String.valueOf(id))){
+                    if(pictures[i].getAbsolutePath().contains("/"+String.valueOf(id)+".png")){
                         kep.setImageBitmap(BitmapFactory.decodeFile(pictures[i].getAbsolutePath()));
+
                     }
                 }
 
+                String[][] hozzavalok = splitter(r.getAlapanyagok());
+
                 TextView nev = view.findViewById(R.id.textView7);
                 TextView hanyfo = view.findViewById(R.id.textView8);
+                TextView leiras = view.findViewById(R.id.textView11);
+                TextView hozzavalo =  view.findViewById(R.id.textView14);
 
                 nev.setText(r.getNev());
                 hanyfo.setText(r.getHanyfo()+" fő");
+                leiras.setText(r.getLeiras());
+
+                int id2 = hozzavalok.length;
+
+
+                for(int i = 0; i<id2; i++){
+                    hozzavalok_string += hozzavalok[i][0] + " " + hozzavalok[i][1]+hozzavalok[i][2]+System.lineSeparator();
+                    //hozzavalo.setText(hozzavalok[i][0] + " " + hozzavalok[i][1]+hozzavalok[i][3]);
+                }
+                //Toast.makeText(getContext(), hozzavalok_string, Toast.LENGTH_SHORT).show();
+                hozzavalo.setText(hozzavalok_string);
             }
         });
     }
