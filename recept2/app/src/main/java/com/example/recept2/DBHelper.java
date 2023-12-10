@@ -43,34 +43,32 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public Boolean updateRecept(String name, String contact, String dob){
+    public Boolean updateRecept(int Id, String Nev, String Leiras, int Hanyfo, String Alapanyagok, String Kategoria){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("contact", contact);
-        contentValues.put("dob", dob);
-        Cursor cursor = db.rawQuery("Select * from Userdetails where name = ?", new String[]{name});
-        if(cursor.getCount()>0) {
-            long result = db.update("Userdetails", contentValues, "name=?", new String[]{name});
-            if (result == -1) {
-                return false;
-            }
-            return true;
+        contentValues.put("Nev", Nev);
+        contentValues.put("Kep", "");
+        contentValues.put("Leiras", Leiras);
+        contentValues.put("Hanyfo", Hanyfo);
+        contentValues.put("Alapanyagok", Alapanyagok);
+        contentValues.put("Kategoria", Kategoria);
+        long result = db.update("Recept",  contentValues, "ID = ?", new String[]{String.valueOf(Id)});
+        if(result==-1){
+            return false;
         }
-        return false;
+        return true;
     }
 
-    public Boolean deleteUserData(String name){
+    public Boolean deleteRecept(int id){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Cursor cursor = db.rawQuery("Select * from Userdetails where name = ?", new String[]{name});
-        if(cursor.getCount()>0) {
-            long result = db.delete("Userdetails", "name=?", new String[]{name});
-            if (result == -1) {
-                return false;
-            }
-            return true;
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ID", id);
+        long result = db.delete("Recept", "ID = ?", new String[]{String.valueOf(id)});
+        if(result==-1){
+            return false;
         }
-        return false;
+        return true;
     }
 
     public ArrayList<Recept> getRecept()

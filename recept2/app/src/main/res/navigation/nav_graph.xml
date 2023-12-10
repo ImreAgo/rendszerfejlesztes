@@ -10,7 +10,6 @@
         android:name="com.example.recept2.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
-
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
@@ -23,15 +22,38 @@
         android:name="com.example.recept2.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
-
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_Calculator"
+            app:destination="@id/FifthFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragment_third"
         android:name="com.example.recept2.ThirdFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_third">
+        <action
+            android:id="@+id/action_ThirdFragment_to_FourthFragment"
+            app:destination="@id/FourthFragment" />
+        <action
+            android:id="@+id/action_ThirdFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_Calculator"
+            app:destination="@id/FifthFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/FourthFragment"
+        android:name="com.example.recept2.FourthFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_fourth">
+    </fragment>
+    <fragment
+        android:id="@+id/FifthFragment"
+        android:name="com.example.recept2.FifthFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_fifth">
     </fragment>
 </navigation>

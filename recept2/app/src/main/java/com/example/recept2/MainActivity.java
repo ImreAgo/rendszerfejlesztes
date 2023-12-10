@@ -1,5 +1,7 @@
 package com.example.recept2;
 
+import static java.security.AccessController.getContext;
+
 import android.os.Bundle;
 
 import com.example.recept2.databinding.FragmentSecondBinding;
@@ -10,8 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 import androidx.core.view.WindowCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
+import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -23,26 +29,18 @@ import android.widget.Spinner;
 
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    Fragment f;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /*ArrayAdapter<String> spinnerArrayAdapter;
-        Spinner kategoriak = findViewById(R.id.kategoria);
-        String kategoriakTomb[] = {"Levesek","Főételek","Köretek","Desszert"};
-        Spinner spinner = (Spinner) findViewById(R.id.kategoria);
-        ArrayAdapter<CharSequence>adapter=ArrayAdapter.createFromResource(this, R.array.kate_string, android.R.layout.simple_spinner_item);
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, R.id.kategoria, kategoriakTomb);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, kategoriakTomb);
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        kategoriak.setAdapter(spinnerArrayAdapter);*/
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -53,17 +51,7 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-       /* binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAnchorView(R.id.fab)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -81,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            //Toast.makeText(MainActivity.this, "megnyomtram a settings gombot.", Toast.LENGTH_SHORT).show();
+
             return true;
         }
 
